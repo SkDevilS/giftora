@@ -31,7 +31,7 @@ import { useWishlistStore } from './stores/wishlistStore';
 // Check if current domain is admin domain
 const isAdminDomain = () => {
   const hostname = window.location.hostname;
-  return hostname === 'admin.giftora.com' || hostname === 'localhost' && window.location.port === '5174';
+  return hostname === 'admin.giftoratrading.shop' || hostname === 'localhost' && window.location.port === '5174';
 };
 
 // Component to redirect to admin login if on admin domain
