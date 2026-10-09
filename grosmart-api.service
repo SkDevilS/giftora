@@ -1,0 +1,28 @@
+[Unit]
+Description=Grosmart Store API Service
+After=network.target mysql.service
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/var/www/grosmart/grosmart/backend
+Environment="PATH=/var/www/grosmart/grosmart/backend/venv/bin:/usr/local/bin:/usr/bin:/bin"
+Environment="FLASK_ENV=production"
+ExecStart=/var/www/grosmart/grosmart/backend/venv/bin/gunicorn \
+    --workers 4 \
+    --bind 127.0.0.1:8000 \
+    --timeout 120 \
+    --access-logfile /var/www/grosmart/grosmart/backend/logs/gunicorn-access.log \
+    --error-logfile /var/www/grosmart/grosmart/backend/logs/gunicorn-error.log \
+    --log-level info \
+    wsgi:app
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
